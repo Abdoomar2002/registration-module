@@ -39,16 +39,24 @@ public static class DependencyInjection
                 outbox.QueryDelay = TimeSpan.FromSeconds(5);
             });
 
-            bus.UsingRabbitMq((context, cfg) =>
+            if (rabbit.UseInMemory)
             {
-                cfg.Host(rabbit.Host, rabbit.Port, rabbit.VirtualHost, host =>
+                // Integration tests: no external broker, consumers run in-process.
+                bus.UsingInMemory((context, cfg) => cfg.ConfigureEndpoints(context));
+            }
+            else
+            {
+                bus.UsingRabbitMq((context, cfg) =>
                 {
-                    host.Username(rabbit.Username);
-                    host.Password(rabbit.Password);
-                });
+                    cfg.Host(rabbit.Host, rabbit.Port, rabbit.VirtualHost, host =>
+                    {
+                        host.Username(rabbit.Username);
+                        host.Password(rabbit.Password);
+                    });
 
-                cfg.ConfigureEndpoints(context);
-            });
+                    cfg.ConfigureEndpoints(context);
+                });
+            }
         });
 
         return services;
