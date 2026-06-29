@@ -14,4 +14,10 @@ public sealed class RabbitMqOptions
     public string Username { get; init; } = "guest";
 
     public string Password { get; init; } = "guest";
+
+    /// <summary>
+    /// When true, the in-memory transport is used instead of RabbitMQ. Intended for
+    /// integration tests so they need no external broker; the outbox still applies.
+    /// </summary>
+    public bool UseInMemory { get; init; }
 }
