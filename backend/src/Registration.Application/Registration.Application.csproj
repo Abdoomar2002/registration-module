@@ -5,6 +5,13 @@
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="AutoMapper" />
+    <!--
+      EF Core (abstractions only) is referenced so IApplicationDbContext can expose
+      DbSet<T> and query handlers can use async LINQ operators. This is the
+      pragmatic Clean Architecture approach (a la the reference template): the
+      Application owns the persistence contract; Persistence implements it.
+    -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
   </ItemGroup>

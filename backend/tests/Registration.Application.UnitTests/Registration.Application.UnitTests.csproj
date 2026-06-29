@@ -22,8 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Registration.Application\Registration.Application.csproj" />
     <ProjectReference Include="..\..\src\Registration.Domain\Registration.Domain.csproj" />
-    <!-- Mapping/handler tests touch persistence-backed test doubles. -->
-    <ProjectReference Include="..\..\src\Registration.Persistence\Registration.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
