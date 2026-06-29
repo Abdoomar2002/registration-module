@@ -17,6 +17,25 @@ jobs:
     defaults:
       run:
         working-directory: backend
+
+    # A SQL Server 2019 service container is the most reliable way to run the
+    # integration tests on the runner; the factory targets it via INTEGRATION_TEST_DB.
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          ACCEPT_EULA: "Y"
+          MSSQL_SA_PASSWORD: "Your_strong!Passw0rd"
+          MSSQL_PID: Developer
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P Your_strong!Passw0rd -Q 'SELECT 1' -b || /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Your_strong!Passw0rd -Q 'SELECT 1' -b"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 20
+          --health-start-period 30s
+
     steps:
       - uses: actions/checkout@v4
 
@@ -37,8 +56,9 @@ jobs:
       - name: Application unit tests
         run: dotnet test tests/Registration.Application.UnitTests -c Release --no-build --verbosity normal
 
-      # Linux runners ship with Docker, so Testcontainers spins up SQL Server 2019.
-      - name: Integration tests (Testcontainers SQL Server 2019)
+      - name: Integration tests
+        env:
+          INTEGRATION_TEST_DB: "Server=127.0.0.1,1433;Database=RegistrationDb_CI;User Id=sa;Password=Your_strong!Passw0rd;TrustServerCertificate=True;Encrypt=False"
         run: dotnet test tests/Registration.IntegrationTests -c Release --no-build --verbosity normal
 
   frontend:
