@@ -5,6 +5,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <!-- MediatR is used to dispatch domain events from SaveChanges. -->
+    <PackageReference Include="MediatR" />
+    <!-- Transactional Outbox entities (InboxState / OutboxState / OutboxMessage). -->
+    <PackageReference Include="MassTransit.EntityFrameworkCore" />
     <!-- Design-time tooling for migrations; not shipped at runtime. -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>

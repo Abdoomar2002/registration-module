@@ -5,7 +5,7 @@ namespace Registration.Domain.Common;
 /// keeping the consistency boundary explicit.
 /// </summary>
 /// <typeparam name="TId">The type of the aggregate identifier.</typeparam>
-public abstract class AggregateRoot<TId> : Entity<TId> where TId : notnull
+public abstract class AggregateRoot<TId> : Entity<TId>, IHasDomainEvents where TId : notnull
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
