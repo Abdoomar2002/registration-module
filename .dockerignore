@@ -1,0 +1,19 @@
+# Keep build contexts small and deterministic.
+**/bin
+**/obj
+**/out
+**/.vs
+**/node_modules
+**/dist
+**/dist-ssr
+**/coverage
+**/TestResults
+**/.git
+**/.github
+**/*.user
+**/.env
+**/.env.*
+!**/.env.example
+**/playwright-report
+**/test-results
+**/*.tsbuildinfo
