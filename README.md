@@ -1,5 +1,7 @@
 # Registration Module
 
+[![CI](https://github.com/Abdoomar2002/registration-module/actions/workflows/ci.yml/badge.svg)](https://github.com/Abdoomar2002/registration-module/actions/workflows/ci.yml)
+
 A full-stack **user registration** module built for the 3S Group developer task.
 
 - **Frontend:** React + TypeScript (Vite), React Hook Form + Zod, accessible reusable components.
