@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# .NET
+# ---------------------------------------------------------------------------
+bin/
+obj/
+out/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.user
+*.suo
+*.userprefs
+project.lock.json
+artifacts/
+.vs/
+TestResults/
+
+# EF Core local sqlite (if ever used)
+*.db
+*.db-shm
+*.db-wal
+
+# ---------------------------------------------------------------------------
+# Node / React
+# ---------------------------------------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
+.vite/
+*.local
+
+# Playwright
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
+frontend/.cache/
+
+# ---------------------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------------------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Secrets & local config (NEVER commit credentials)
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+appsettings.*.local.json
+secrets.json
+*.pfx

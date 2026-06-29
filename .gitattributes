@@ -1,0 +1,27 @@
+# Normalize line endings: store text as LF in the repo, check out native on Windows.
+* text=auto
+
+# Force LF for code/config so cross-platform builds and Docker images are stable.
+*.cs        text eol=lf
+*.csproj    text eol=lf
+*.props     text eol=lf
+*.targets   text eol=lf
+*.json      text eol=lf
+*.ts        text eol=lf
+*.tsx       text eol=lf
+*.js        text eol=lf
+*.jsx       text eol=lf
+*.css       text eol=lf
+*.html      text eol=lf
+*.md        text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.sh        text eol=lf
+Dockerfile  text eol=lf
+*.sln       text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.ico binary
+*.pfx binary

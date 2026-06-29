@@ -1,0 +1,32 @@
+<Project>
+
+  <!-- Settings shared by every project in the solution. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Missing XML comments should not fail the build; nullable issues should be visible. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <!-- NuGet vulnerability auditing stays ON so new advisories surface. -->
+    <NuGetAudit>true</NuGetAudit>
+    <NuGetAuditMode>direct</NuGetAuditMode>
+  </PropertyGroup>
+
+  <!--
+    Risk-accepted, single-advisory suppression (NuGet 6.12+ honours this; older
+    tooling ignores it harmlessly). GHSA-rvv3-g6hj-g44x is an uncontrolled-
+    recursion DoS in AutoMapper < 15.1.1. We pin AutoMapper 13.0.1 because the
+    patched 15.1.1+ line requires a commercial license key. The vector needs
+    self-referential / recursive type graphs; our DTO<->entity maps are flat and
+    fixed, so it is not reachable. See README "Technical decisions".
+  -->
+  <ItemGroup>
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-rvv3-g6hj-g44x" />
+  </ItemGroup>
+
+</Project>
