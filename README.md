@@ -13,9 +13,6 @@ A full-stack **user registration** module built for the 3S Group developer task.
 > Infrastructure → API → Integration tests → Frontend → Docker). See the
 > [merged PRs](https://github.com/Abdoomar2002/registration-module/pulls?q=is%3Apr+is%3Aclosed) for the layer-by-layer history.
 
-> 📖 **New here?** Read the [Complete Project Guide](docs/PROJECT_GUIDE.md) — it explains the
-> end-to-end flow and every concept, pattern, library, algorithm and tool used in the project.
-
 ---
 
 ## Solution at a glance
