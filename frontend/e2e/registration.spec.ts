@@ -42,7 +42,20 @@ test.describe('Registration form', () => {
     await expect(submit).toBeEnabled();
     await submit.click();
 
-    await expect(page.getByText(/registration created/i)).toBeVisible();
+    await expect(page.getByText(/you're registered/i)).toBeVisible();
     await expect(page.getByText(/reference id/i)).toBeVisible();
+
+    // View the just-created registration by id.
+    await page.getByRole('button', { name: /view registration/i }).click();
+    await expect(page.getByText('Abdelrahman Omar')).toBeVisible();
+    await expect(page.getByText('Tahrir Street, Bldg 12A, Flat 3')).toBeVisible();
+  });
+
+  test('find page reports a not-found id @happy', async ({ page }) => {
+    await page.goto('/');
+    await page.getByRole('button', { name: /find registration/i }).click();
+    await page.getByLabel(/registration id/i).fill('00000000-0000-0000-0000-000000000000');
+    await page.getByRole('button', { name: /^find$/i }).click();
+    await expect(page.getByText(/no registration found/i)).toBeVisible();
   });
 });

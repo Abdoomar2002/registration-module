@@ -34,6 +34,32 @@ export interface CreateRegistrationResult {
   id: string;
 }
 
+export interface AddressDetails {
+  id: string;
+  governorateId: number;
+  governorateName?: string | null;
+  cityId: number;
+  cityName?: string | null;
+  street: string;
+  buildingNumber: string;
+  flatNumber: string;
+  isPrimary: boolean;
+}
+
+export interface RegistrationDetails {
+  id: string;
+  firstName: string;
+  middleName?: string | null;
+  lastName: string;
+  fullName: string;
+  birthDate: string;
+  email: string;
+  mobile: string;
+  addresses: AddressDetails[];
+  createdAtUtc: string;
+  updatedAtUtc?: string | null;
+}
+
 /** RFC 7807 ProblemDetails (and ValidationProblemDetails) returned by the API. */
 export interface ProblemDetails {
   type?: string;
