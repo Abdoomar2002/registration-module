@@ -27,7 +27,11 @@ function toFieldPath(serverKey: string): string {
     .join('.');
 }
 
-export function RegistrationForm() {
+interface RegistrationFormProps {
+  onViewRegistration?: (id: string) => void;
+}
+
+export function RegistrationForm({ onViewRegistration }: RegistrationFormProps) {
   const {
     register,
     control,
@@ -140,16 +144,28 @@ export function RegistrationForm() {
 
   if (createdId) {
     return (
-      <div className="card" role="status">
-        <div className="alert alert-success">
-          <strong>Registration created.</strong>
-          <div>
-            Reference id: <code>{createdId}</code>
-          </div>
+      <div className="card success-card pop-in" role="status">
+        <div className="success-check" aria-hidden="true">
+          <svg viewBox="0 0 52 52" className="success-check-svg">
+            <circle className="success-check-circle" cx="26" cy="26" r="24" fill="none" />
+            <path className="success-check-mark" fill="none" d="M14 27l8 8 16-16" />
+          </svg>
         </div>
-        <button type="button" className="btn-primary" onClick={handleRegisterAnother}>
-          Register another
-        </button>
+        <h2>You're registered!</h2>
+        <p className="subtitle">Your registration was created successfully.</p>
+        <p className="reference">
+          Reference id: <code>{createdId}</code>
+        </p>
+        <div className="form-actions center">
+          {onViewRegistration && (
+            <button type="button" className="btn-primary" onClick={() => onViewRegistration(createdId)}>
+              View registration
+            </button>
+          )}
+          <button type="button" className="btn-secondary" onClick={handleRegisterAnother}>
+            Register another
+          </button>
+        </div>
       </div>
     );
   }
