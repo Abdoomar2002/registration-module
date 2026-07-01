@@ -13,6 +13,9 @@ public static class LookupSeedData
         new Governorate(1, "Cairo", "القاهرة"),
         new Governorate(2, "Giza", "الجيزة"),
         new Governorate(3, "Alexandria", "الإسكندرية"),
+        new Governorate(4, "Dakahlia", "الدقهلية"),
+        new Governorate(5, "Red Sea", "البحر الأحمر"),
+        new Governorate(6, "Qalyubia", "القليوبية"),
     };
 
     public static IReadOnlyList<City> Cities { get; } = new[]
@@ -28,5 +31,14 @@ public static class LookupSeedData
         // Alexandria
         new City(7, 3, "Smouha", "سموحة"),
         new City(8, 3, "Miami", "ميامي"),
+        // Dakahlia
+        new City(9, 4, "Mansoura", "المنصورة"),
+        new City(10, 4, "Talkha", "طلخا"),
+        // Red Sea
+        new City(11, 5, "Hurghada", "الغردقة"),
+        new City(12, 5, "Safaga", "سفاجا"),
+        // Qalyubia
+        new City(13, 6, "Banha", "بنها"),
+        new City(14, 6, "Shubra El-Kheima", "شبرا الخيمة"),
     };
 }
