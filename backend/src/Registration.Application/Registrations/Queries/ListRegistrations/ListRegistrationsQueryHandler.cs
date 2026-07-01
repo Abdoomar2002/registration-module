@@ -27,7 +27,11 @@ public sealed class ListRegistrationsQueryHandler
 
         if (!string.IsNullOrWhiteSpace(request.Search))
         {
-            var term = request.Search.Trim();
+            // Escape SQL Server LIKE wildcards to prevent unintended wildcard expansions.
+            var term = request.Search.Trim()
+                .Replace("[", "[[]")
+                .Replace("%", "[%]")
+                .Replace("_", "[_]");
             var normalizedEmail = term.ToLowerInvariant();
 
             query = query.Where(r =>

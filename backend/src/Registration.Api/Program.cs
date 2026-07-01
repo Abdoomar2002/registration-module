@@ -7,8 +7,15 @@ using Registration.Persistence;
 using Registration.Presentation;
 using Registration.Presentation.Middleware;
 using Serilog;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 1_048_576; // 1 MB
+});
+
 
 // Structured logging (Serilog) with correlation id support via the log context.
 builder.Host.UseSerilog((context, services, configuration) => configuration
@@ -34,6 +41,19 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy
     .AllowAnyMethod()
     .WithExposedHeaders(CorrelationIdMiddleware.HeaderName)));
 
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 30,
+                Window = TimeSpan.FromMinutes(1),
+            }));
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
@@ -46,6 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors();
+app.UseRateLimiter();
 app.MapControllers();
 
 app.MapHealthChecks("/health", new HealthCheckOptions

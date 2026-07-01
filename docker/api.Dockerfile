@@ -29,4 +29,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=10 \
     CMD curl -fsS http://localhost:8080/health || exit 1
 
+USER $APP_UID
 ENTRYPOINT ["dotnet", "Registration.Api.dll"]
