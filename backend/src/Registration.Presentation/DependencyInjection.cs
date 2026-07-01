@@ -58,6 +58,7 @@ public static class DependencyInjection
     /// </summary>
     public static WebApplication UsePresentation(this WebApplication app)
     {
+        app.UseMiddleware<SecurityHeadersMiddleware>();
         app.UseMiddleware<CorrelationIdMiddleware>();
         app.UseExceptionHandler();
 
