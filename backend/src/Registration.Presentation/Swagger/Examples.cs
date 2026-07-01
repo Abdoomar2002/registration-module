@@ -2,7 +2,7 @@ using Registration.Application.Registrations.Commands.CreateRegistration;
 using Registration.Application.Registrations.Dtos;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Registration.Api.Swagger;
+namespace Registration.Presentation.Swagger;
 
 /// <summary>Example request body shown in Swagger for creating a registration.</summary>
 public sealed class CreateRegistrationCommandExample : IExamplesProvider<CreateRegistrationCommand>

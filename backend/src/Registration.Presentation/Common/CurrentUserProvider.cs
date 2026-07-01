@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Http;
 using Registration.Application.Common.Interfaces;
 
-namespace Registration.Api.Common;
+namespace Registration.Presentation.Common;
 
 /// <summary>
 /// Resolves the current user for audit stamping. With no authentication wired up,

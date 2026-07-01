@@ -1,15 +1,12 @@
-using System.Reflection;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Registration.Api.Common;
-using Registration.Api.Middleware;
-using Registration.Api.Swagger;
 using Registration.Application;
-using Registration.Application.Common.Interfaces;
 using Registration.Infrastructure;
 using Registration.Persistence;
+using Registration.Presentation;
+using Registration.Presentation.Middleware;
 using Serilog;
-using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,36 +20,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddPersistence(builder.Configuration);
-
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-
-// Consistent RFC 7807 error responses.
-builder.Services.AddProblemDetails();
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new()
-    {
-        Title = "Registration API",
-        Version = "v1",
-        Description = "Registration module API - create registrations with addresses and read lookups.",
-    });
-
-    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    if (File.Exists(xmlPath))
-    {
-        options.IncludeXmlComments(xmlPath);
-    }
-
-    options.ExampleFilters();
-});
-builder.Services.AddSwaggerExamplesFromAssemblyOf<CreateRegistrationCommandExample>();
+builder.Services.AddPresentation();
 
 // Health checks: SQL Server explicitly; MassTransit auto-registers a bus check (RabbitMQ).
 var connectionString = builder.Configuration.GetConnectionString("Default")!;
@@ -69,8 +37,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
-app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseExceptionHandler();
+app.UsePresentation();
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,6 +1,7 @@
+using Microsoft.AspNetCore.Http;
 using Serilog.Context;
 
-namespace Registration.Api.Middleware;
+namespace Registration.Presentation.Middleware;
 
 /// <summary>
 /// Ensures every request has a correlation id: it reuses an inbound

@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Registration.Application.Common.Exceptions;
 using Registration.Domain.Common;
 using ValidationException = Registration.Application.Common.Exceptions.ValidationException;
 
-namespace Registration.Api.Common;
+namespace Registration.Presentation.Common;
 
 /// <summary>
 /// Translates exceptions into RFC 7807 ProblemDetails with a consistent shape:
