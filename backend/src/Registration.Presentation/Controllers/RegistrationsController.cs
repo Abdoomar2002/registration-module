@@ -1,14 +1,15 @@
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Registration.Api.Swagger;
 using Registration.Application.Common.Models;
 using Registration.Application.Registrations.Commands.CreateRegistration;
 using Registration.Application.Registrations.Dtos;
 using Registration.Application.Registrations.Queries.GetRegistrationById;
 using Registration.Application.Registrations.Queries.ListRegistrations;
+using Registration.Presentation.Swagger;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace Registration.Api.Controllers;
+namespace Registration.Presentation.Controllers;
 
 [ApiController]
 [Route("api/registrations")]

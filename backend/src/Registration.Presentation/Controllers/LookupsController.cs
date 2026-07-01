@@ -1,10 +1,11 @@
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Registration.Application.Lookups.Dtos;
 using Registration.Application.Lookups.Queries.GetCities;
 using Registration.Application.Lookups.Queries.GetGovernorates;
 
-namespace Registration.Api.Controllers;
+namespace Registration.Presentation.Controllers;
 
 [ApiController]
 [Route("api/lookups")]
